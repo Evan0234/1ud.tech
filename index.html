@@ -1,26 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPN/Proxy Check</title>
-    <style>
-        #vpn-warning {
-            display: none;
-            color: red;
-            font-size: 24px;
-            text-align: center;
-            margin-top: 50px;
-        }
-    </style>
+name: Deploy to GitHub Pages
 
-    <!-- Meta tag for storing the API key, replaced during GitHub Actions deployment -->
-    <meta name="api-key" content="API_KEY_PLACEHOLDER">
+on:
+  push:
+    branches:
+      - main  # or your default branch
 
-    <script src="index.js" defer></script> <!-- Include the external JS file -->
-</head>
-<body>
-    <h1 id="welcome-message">Welcome to the website!</h1>
-    <h2 id="vpn-warning">Please disable your VPN or Proxy and try again.</h2>
-</body>
-</html>
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Optional: Replace placeholder with the API key (if needed in index.html or another file)
+    - name: Replace API key in HTML
+      run: |
+        sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.VPNCHECKAPI }}/g' index.html
+
+    # Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # Or personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }} if using a PAT
+        publish_dir: ./  # This means the root directory of your repository
