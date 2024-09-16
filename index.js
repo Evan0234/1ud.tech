@@ -1,44 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPN/Proxy Check</title>
-    <style>
-        #vpn-warning {
-            display: none;
-            color: red;
-            font-size: 24px;
-            text-align: center;
-            margin-top: 50px;
-        }
-    </style>
-</head>
-<body>
-    <h1 id="welcome-message">Welcome to the website!</h1>
-    <h2 id="vpn-warning">Please disable your VPN or Proxy and try again.</h2>
+// This code runs when the page is loaded
 
-    <script>
-        const API_KEY = 'API_KEY_PLACEHOLDER'; // This will be replaced with the actual key during deployment
+document.addEventListener("DOMContentLoaded", function() {
+    const API_KEY = document.querySelector('meta[name="api-key"]').getAttribute('content');
 
-        async function checkVPN() {
-            try {
-                const response = await fetch(`https://proxycheck.io/v2/?key=${API_KEY}&vpn=1`);
-                const data = await response.json();
+    // Function to check if the user is using a VPN or proxy
+    async function checkVPN() {
+        try {
+            // Call the ProxyCheck API using the fetched API key
+            const response = await fetch(`https://proxycheck.io/v2/?key=${API_KEY}&vpn=1`);
+            const data = await response.json();
 
-                const ip = Object.keys(data)[0];
-                const result = data[ip];
+            // Extract the IP address and result from the response
+            const ip = Object.keys(data)[0];
+            const result = data[ip];
 
-                if (result.proxy === "yes") {
-                    document.getElementById('welcome-message').style.display = 'none';
-                    document.getElementById('vpn-warning').style.display = 'block';
-                }
-            } catch (error) {
-                console.error('Error checking VPN:', error);
+            if (result.proxy === "yes") {
+                // If the user is using a VPN/proxy, show the warning message
+                document.getElementById('welcome-message').style.display = 'none';
+                document.getElementById('vpn-warning').style.display = 'block';
             }
+        } catch (error) {
+            console.error('Error checking VPN:', error);
         }
+    }
 
-        window.onload = checkVPN;
-    </script>
-</body>
-</html>
+    // Run the VPN check when the page loads
+    checkVPN();
+});
