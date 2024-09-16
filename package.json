@@ -1,0 +1,12 @@
+{
+  "name": "vpn-check",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^1.2.3",
+    "express": "^4.17.3"
+  }
+}
