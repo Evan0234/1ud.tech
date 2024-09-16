@@ -13,14 +13,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Replace placeholder with the API key
+    # Optional: Replace placeholder with the API key
     - name: Replace API key in HTML
       run: |
         sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.VPNCHECKAPI }}/g' index.html
 
-    # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}  # Or personal_token if using a PAT
+        personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}  # Use PAT instead of GITHUB_TOKEN
         publish_dir: ./  # Root directory
