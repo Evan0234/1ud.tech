@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
+      - main  # Trigger deployment on push to the main branch
 
 jobs:
   build:
@@ -18,10 +18,7 @@ jobs:
       with:
         node-version: '14'
 
-    # Optional: Install dependencies if you have a build process
-    # - name: Install dependencies
-    #   run: npm install
-
+    # Replace API key in HTML
     - name: Replace API key in HTML
       run: |
         sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.VPNCHECKAPI }}/g' index.html
@@ -30,4 +27,4 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .  # Use the root directory (.) or a folder like 'build' or 'public' if you're generating the site
+        publish_dir: .  # Directory to publish, adjust this if necessary
