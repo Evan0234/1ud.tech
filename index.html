@@ -1,1 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN/Proxy Check</title>
+    <style>
+        #vpn-warning {
+            display: none;
+            color: red;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
 
+    <!-- Meta tag for storing the API key, replaced during GitHub Actions deployment -->
+    <meta name="api-key" content="API_KEY_PLACEHOLDER">
+
+    <script src="index.js" defer></script> <!-- Include the external JS file -->
+</head>
+<body>
+    <h1 id="welcome-message">Welcome to the website!</h1>
+    <h2 id="vpn-warning">Please disable your VPN or Proxy and try again.</h2>
+</body>
+</html>
