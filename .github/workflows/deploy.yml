@@ -3,23 +3,33 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Or your default branch
+      - main  # Replace with your default branch
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Replace placeholder with the API key in index.html
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Specify the Node.js version you need
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build  # Replace with your build command if you have one
+
     - name: Replace API key in HTML
       run: |
-        sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.VPNCHECKAPI }}/g' index.html
+        sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.VPNCHECKAPI }}/g' public/index.html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default GitHub token
-        publish_dir: ./  # Root directory
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # Ensure this is set correctly
+        publish_dir: ./public  # Adjust if your build output is in a different folder
