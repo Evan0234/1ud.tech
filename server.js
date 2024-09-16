@@ -1,8 +1,9 @@
-// server.js
 const express = require('express');
 const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(express.static('public'));  // Serve static files from 'public' folder
 
 // Endpoint to handle the API request
 app.get('/api/check-vpn', async (req, res) => {
