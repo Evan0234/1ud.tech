@@ -4,7 +4,7 @@
   "description": "Website",
   "scripts": {
     "start": "echo 'No start script defined'",
-    "build": "echo 'No build step required'",  // If no build is needed
+    "build": "echo 'No build step required'",
     "test": "echo 'No test specified'"
   },
   "author": "Evan",
