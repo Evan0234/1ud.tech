@@ -5,20 +5,22 @@ async function detectVPNorProxy() {
         console.log('Fetching IP info...');
         const response = await fetch(IPINFO_URL);
         console.log('Response received:', response);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
         console.log('IP info response:', data); // Debugging line
-        
+
+        // Ensure 'privacy' exists in the API response and check for VPN or Proxy
         if (data.privacy) {
             const isVPN = data.privacy.vpn || false;
             const isProxy = data.privacy.proxy || false;
             console.log('Is VPN:', isVPN);
             console.log('Is Proxy:', isProxy);
-            
+
+            // Redirect to 1ud.website if VPN or Proxy is detected
             if (isVPN || isProxy) {
                 console.log('Redirecting to 1ud.website');
                 window.location.href = 'https://1ud.website';
@@ -28,6 +30,7 @@ async function detectVPNorProxy() {
         }
     } catch (error) {
         console.error('Error fetching IP info:', error);
+        // Optionally, redirect or show a message in case of an error
         const warningDiv = document.getElementById('warning');
         warningDiv.innerHTML = `<p>Failed to check VPN/Proxy status.</p>`;
         warningDiv.style.display = 'block';
