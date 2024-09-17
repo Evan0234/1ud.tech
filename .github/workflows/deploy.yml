@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy
 
 on:
   push:
     branches:
-      - main  # Replace with your default branch
+      - main
 
 jobs:
   build:
@@ -16,20 +16,24 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # Specify the Node.js version you need
+        node-version: '16'
 
     - name: Install dependencies
       run: npm install
 
     - name: Build the project
-      run: npm run build  # Replace with your build command if you have one
+      run: npm run build
 
-    - name: Replace API key in HTML
+    - name: Replace API key placeholder
       run: |
-        sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.VPNCHECKAPI }}/g' public/index.html
+        if [ -f index.html ]; then
+          sed -i 's/API_KEY_PLACEHOLDER/${{ secrets.API_KEY }}/g' index.html
+        else
+          echo "index.html not found, skipping API key replacement."
+        fi
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}  # Ensure this is set correctly
-        publish_dir: ./public  # Adjust if your build output is in a different folder
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .  # Deploy the root directory
