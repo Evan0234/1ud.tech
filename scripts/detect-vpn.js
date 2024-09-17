@@ -11,8 +11,8 @@ async function detectVPNorProxy() {
 
         // Check if privacy information is available and contains VPN or Proxy info
         if (data.privacy) {
-            const isVPN = data.privacy.vpn;
-            const isProxy = data.privacy.proxy;
+            const isVPN = data.privacy.vpn || false;
+            const isProxy = data.privacy.proxy || false;
 
             let warningMessage = '';
 
@@ -24,7 +24,7 @@ async function detectVPNorProxy() {
                 warningDiv.style.display = 'block';
             }
         } else {
-            console.log('Privacy information not available in API response.');
+            console.error('Privacy information not available in API response.');
         }
     } catch (error) {
         console.error('Error fetching IP info:', error);
