@@ -13,23 +13,21 @@ async function detectVPNorProxy() {
             const isVPN = data.privacy.vpn || false;
             const isProxy = data.privacy.proxy || false;
 
-            let warningMessage = '';
-
             if (isVPN || isProxy) {
-                warningMessage = 'Please turn off your VPN or Proxy.';
-                const warningDiv = document.getElementById('warning');
-                warningDiv.innerHTML = `<p>${warningMessage}</p>`;
-                warningDiv.style.display = 'block';
+                // Redirect to 1ud.website if VPN or Proxy is detected
+                window.location.href = 'https://1ud.website';
             }
         } else {
             console.error('Privacy information not available in API response.');
         }
     } catch (error) {
         console.error('Error fetching IP info:', error);
+        // Optionally, redirect or show a message in case of an error
         const warningDiv = document.getElementById('warning');
         warningDiv.innerHTML = `<p>Failed to check VPN/Proxy status.</p>`;
         warningDiv.style.display = 'block';
     }
 }
 
+// Call the function to detect VPN or Proxy
 detectVPNorProxy();
