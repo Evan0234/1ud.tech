@@ -7,6 +7,8 @@ async function detectVPNorProxy() {
         const response = await fetch(IPINFO_URL);
         const data = await response.json();
 
+        console.log('IP info response:', data); // Debugging line
+
         // Check if VPN, Proxy, or Tor flag exists
         if (data.privacy) {
             let warningMessage = 'Please disable your ';
@@ -15,8 +17,9 @@ async function detectVPNorProxy() {
                 warningMessage += 'VPN, proxy, or Tor browser.';
                 
                 // Display the warning message on the screen
-                document.getElementById('warning').innerHTML = `<p>${warningMessage}</p>`;
-                document.getElementById('warning').style.display = 'block';
+                const warningDiv = document.getElementById('warning');
+                warningDiv.innerHTML = `<p>${warningMessage}</p>`;
+                warningDiv.style.display = 'block';
             }
         }
     } catch (error) {
