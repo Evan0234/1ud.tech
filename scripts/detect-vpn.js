@@ -9,17 +9,22 @@ async function detectVPNorProxy() {
 
         console.log('IP info response:', data); // Debugging line
 
+        // Check if VPN, Proxy, or Tor flag exists
         if (data.privacy) {
-            let warningMessage = 'Please disable your ';
+            const isVPN = data.privacy.vpn;
+            const isProxy = data.privacy.proxy;
+            const isTor = data.privacy.tor;
 
-            if (data.privacy.proxy || data.privacy.vpn || data.privacy.tor) {
-                warningMessage += 'VPN, proxy, or Tor browser.';
-                
-                // Display the warning message on the screen
+            let warningMessage = '';
+
+            if (isVPN || isProxy || isTor) {
+                warningMessage = 'Please disable your VPN, proxy, or Tor browser.';
                 const warningDiv = document.getElementById('warning');
                 warningDiv.innerHTML = `<p>${warningMessage}</p>`;
                 warningDiv.style.display = 'block';
             }
+        } else {
+            console.log('Privacy information not available in API response.');
         }
     } catch (error) {
         console.error('Error fetching IP info:', error);
