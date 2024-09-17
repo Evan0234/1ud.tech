@@ -1,7 +1,7 @@
 // The correct URL to use for IP detection with your token
 const IPINFO_URL = 'https://ipinfo.io/json?token=899f12fa5133df';
 
-// Function to detect if the user is using a VPN, Proxy, or Tor
+// Function to detect if the user is using a VPN or Proxy
 async function detectVPNorProxy() {
     try {
         const response = await fetch(IPINFO_URL);
@@ -9,16 +9,16 @@ async function detectVPNorProxy() {
 
         console.log('IP info response:', data); // Debugging line
 
-        // Check if VPN, Proxy, or Tor flag exists
+        // Check if privacy information is available and contains VPN or Proxy info
         if (data.privacy) {
             const isVPN = data.privacy.vpn;
             const isProxy = data.privacy.proxy;
-            const isTor = data.privacy.tor;
 
             let warningMessage = '';
 
-            if (isVPN || isProxy || isTor) {
-                warningMessage = 'Please disable your VPN, proxy, or Tor browser.';
+            // Determine if VPN or Proxy is detected
+            if (isVPN || isProxy) {
+                warningMessage = 'Please turn off your VPN or Proxy.';
                 const warningDiv = document.getElementById('warning');
                 warningDiv.innerHTML = `<p>${warningMessage}</p>`;
                 warningDiv.style.display = 'block';
