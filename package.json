@@ -1,17 +1,12 @@
 {
   "name": "1ud.tech",
   "version": "1.0.0",
-  "description": "My website 1ud.tech",
-  "main": "index.js",
+  "description": "Website",
   "scripts": {
-    "start": "node index.js",
-    "build": "echo 'No build step defined'",
-    "test": "echo 'No test defined'"
+    "start": "echo 'No start script defined'",
+    "build": "echo 'No build step required'",  // If no build is needed
+    "test": "echo 'No test specified'"
   },
-  "keywords": [],
-  "author": "Your Name",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+  "author": "Evan",
+  "license": "MIT"
 }
