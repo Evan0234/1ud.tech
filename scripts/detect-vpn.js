@@ -9,7 +9,6 @@ async function detectVPNorProxy() {
 
         console.log('IP info response:', data); // Debugging line
 
-        // Check if VPN, Proxy, or Tor flag exists
         if (data.privacy) {
             let warningMessage = 'Please disable your ';
 
